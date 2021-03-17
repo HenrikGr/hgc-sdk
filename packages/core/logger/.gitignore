@@ -4,7 +4,7 @@ npm-debug.log
 .idea
 
 # Build directory
-lib/
+../logger/lib/
 packages/*/lib
 
 # dotenv environment variables file
@@ -67,7 +67,7 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
+../node_modules/
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)

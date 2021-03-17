@@ -24,7 +24,7 @@
     "clean": "rimraf ./lib",
     "build": "npm run clean && npm run compile",
     "compile": "tsc -p tsconfig.build.json",
-    "copy": "ts-node -T ../../scripts/copy.ts",
+    "copy": "ts-node -T ../../../scripts/copy.ts",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
