@@ -1,5 +1,5 @@
 {
-  "name": "@hgc-sdk/core",
+  "name": "@hgc-sdk/core-test",
   "version": "1.0.0",
   "description": "SDK Core library",
   "author": "Henrik Grönvall <hgc-ab@outlook.com>",
