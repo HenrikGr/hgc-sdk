@@ -1,7 +1,7 @@
 {
-  "name": "@hgc-sdk/core-test",
-  "version": "1.0.4",
-  "description": "SDK Core library",
+  "name": "@hgc-sdk/logger",
+  "version": "1.0.0",
+  "description": "SDK Logger library",
   "author": "Henrik Grönvall <hgc-ab@outlook.com>",
   "license": "Apache-2.0",
   "keywords": [

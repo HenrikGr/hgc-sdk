@@ -5,18 +5,6 @@ export { Debugger } from 'debug'
  * The ServiceLogger provides a mechanism for overriding where logs are output to.
  * By default, logs are sent to stderr. Override the `log` method to redirect logs
  * to another location.
- *
- * @example
- *
- * function outputFunction(...args: any[]) {
- *   console.log(...args)
- * }
- *
- * const logger = require('@hgc-sdk/core-logger')
- * const { ServiceLogger } = logger
- * ServiceLogger.log = outputFunction
- * // All registered and enabled loggers will now log to the outputFunction
- *
  */
 export const ServiceLogger: ServiceClientLogger = debug('@hgc-ab')
 ServiceLogger.log = (...args) => {
