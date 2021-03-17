@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/HenrikGr/hgc-sdk#readme",
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "clean": "lerna run clean",
     "build": "lerna run build",
     "publish": "npm run build && lerna publish from-package"

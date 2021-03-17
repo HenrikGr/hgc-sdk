@@ -1,3 +1,3 @@
-//import * as core from '@hgc-sdk/core'
+import * as core from '@hgc-sdk/core-test'
 
-//console.log('core: ', core)
+console.log('core: ', core)
