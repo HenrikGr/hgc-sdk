@@ -1,6 +1,6 @@
 {
   "name": "@hgc-sdk/core-test",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "SDK Core library",
   "author": "Henrik Grönvall <hgc-ab@outlook.com>",
   "license": "Apache-2.0",
@@ -21,10 +21,10 @@
   },
   "homepage": "https://github.com/HenrikGr/hgc-sdk#readme",
   "scripts": {
-    "clean": "../node_modules/.bin/rimraf logger/lib",
+    "clean": "rimraf ./lib",
     "build": "npm run clean && npm run compile",
     "compile": "tsc -p tsconfig.build.json",
-    "copy": "ts-node -T ../../../scripts/copy.ts",
+    "copy": "ts-node -T ../../scripts/copy.ts",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {

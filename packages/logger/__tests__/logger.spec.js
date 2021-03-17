@@ -2,6 +2,6 @@
 
 import core from '../lib'
 
-describe('core', () => {
+describe('Logger', () => {
     it('needs tests');
 });

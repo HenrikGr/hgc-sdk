@@ -5,7 +5,7 @@ npm-debug.log
 
 # Build directory
 lib/
-packages/core/logger/lib
+packages/logger/lib
 
 # dotenv environment variables file
 .env
