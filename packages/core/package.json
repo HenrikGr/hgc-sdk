@@ -7,8 +7,8 @@
   "keywords": [
     "SDK"
   ],
-  "main": "lib/core/src/core.js",
-  "typings": "lib/core/src/core.d.ts",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "files": [
     "lib"
   ],
@@ -22,7 +22,8 @@
   "homepage": "https://github.com/HenrikGr/hgc-sdk#readme",
   "scripts": {
     "clean": "rimraf ./lib",
-    "build": "rimraf ./lib && tsc",
+    "build": "npm run clean && npm run compile",
+    "compile": "tsc -p tsconfig.build.json",
     "copy": "ts-node -T ../../scripts/copy.ts",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
