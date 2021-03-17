@@ -18,7 +18,7 @@
   "scripts": {
     "clean": "lerna run clean",
     "build": "lerna run build",
-    "publish": "npm run build && lerna publish from-package --contents lib --force-publish"
+    "publish": "npm run build && lerna publish from-package"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",
