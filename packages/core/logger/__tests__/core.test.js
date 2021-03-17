@@ -1,6 +1,6 @@
 'use strict';
 
-import core from '..'
+import core from '../lib'
 
 describe('core', () => {
     it('needs tests');

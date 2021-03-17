@@ -1,9 +1,7 @@
 {
   "extends": "./tsconfig.build.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@hgc-sdk/*": ["packages/*/src"]
-    }
+  "baseUrl": ".",
+  "paths": {
+    "@hgc-sdk/*": ["packages/*/src"]
   }
 }

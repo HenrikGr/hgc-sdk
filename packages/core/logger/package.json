@@ -21,10 +21,10 @@
   },
   "homepage": "https://github.com/HenrikGr/hgc-sdk#readme",
   "scripts": {
-    "clean": "rimraf ./lib",
+    "clean": "../node_modules/.bin/rimraf logger/lib",
     "build": "npm run clean && npm run compile",
     "compile": "tsc -p tsconfig.build.json",
-    "copy": "ts-node -T ../../scripts/copy.ts",
+    "copy": "ts-node -T ../../../scripts/copy.ts",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
