@@ -1,0 +1,33 @@
+{
+  "name": "@hgc-sdk/sdk",
+  "private": true,
+  "description": "HGC-SDK",
+  "author": "Henrik Grönvall <hgc-ab@outlook.com>",
+  "license": "Apache-2.0",
+  "keywords": [
+    "SDK"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HenrikGr/hgc-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HenrikGr/hgc-sdk/issues"
+  },
+  "homepage": "https://github.com/HenrikGr/hgc-sdk#readme",
+  "scripts": {
+    "clean": "lerna run clean",
+    "build": "lerna run build",
+    "publish": "npm run build && lerna publish from-package --contents lib --force-publish"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.33",
+    "lerna": "^4.0.0",
+    "rimraf": "^3.0.2",
+    "jest": "^26.6.3",
+    "ts-jest": "26.5.3",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3"
+  }
+}
