@@ -1,5 +1,4 @@
-// Test
 /**
- * Core library
+ * Core logger module
  */
-export * from './logger'
+export * as logger from './logger'
