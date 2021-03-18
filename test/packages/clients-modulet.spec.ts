@@ -12,15 +12,27 @@ const clientConfig = {
 
 describe('Clients Package Suite', () => {
 
-  test('HttpClient -> should return a json data', async () => {
-    const httpClient = new HttpClient(httpConfig)
-    const result = await httpClient.request('/todos')
-    console.log('result: ', result.body)
+  describe('HttpClient', () => {
+    test('HttpClient -> should return a json data', async () => {
+      const httpClient = new HttpClient(httpConfig)
+      const result = await httpClient.request('/todos')
+      console.log('result: ', result.body)
+    })
+
+    /**
+     * TODO: Error handling
+     */
   })
 
-  test('RestClient -> should return json data', async () => {
-    const client = new RestClient(clientConfig)
-    const result = await client.request('/todos')
-    console.log('result: ', result)
+  describe('RestClient', () => {
+
+    test('RestClient -> should return json data', async () => {
+      const client = new RestClient(clientConfig)
+      const result = await client.request('/todos')
+      console.log('result: ', result)
+    })
+
+
   })
+
 })
