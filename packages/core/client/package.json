@@ -1,0 +1,41 @@
+{
+  "name": "@hgc-sdk/clients",
+  "version": "1.0.0",
+  "description": "SDK Clients library",
+  "author": "Henrik Grönvall <hgc-ab@outlook.com>",
+  "license": "Apache-2.0",
+  "keywords": [
+    "SDK"
+  ],
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HenrikGr/hgc-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HenrikGr/hgc-sdk/issues"
+  },
+  "homepage": "https://github.com/HenrikGr/hgc-sdk#readme",
+  "scripts": {
+    "clean": "rimraf ./lib",
+    "build": "npm run clean && npm run compile",
+    "compile": "tsc -p tsconfig.build.json",
+    "copy": "ts-node -T ../../../scripts/copy.ts",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "qs": "^6.9.6",
+    "debug": "^4.3.1",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.35",
+    "@types/debug": "^4.1.5",
+    "@types/qs": "^6.9.6"
+  }
+}
