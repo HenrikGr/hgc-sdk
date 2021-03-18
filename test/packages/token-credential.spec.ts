@@ -1,4 +1,4 @@
-import { TokenCredential, GetTokenOptions, AccessToken } from '../../packages/core/client/src/auth'
+import { TokenCredential, GetTokenOptions, AccessToken } from '../../packages/core/clients/src/auth'
 
 /* This is an example token credential that uses a token value directly. Ordinarily, clients should use a
  * TokenCredential provided by the user when the client is created. Users should use DefaultAzureCredential

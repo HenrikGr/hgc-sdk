@@ -1,5 +1,5 @@
-import { HttpClient } from '../../packages/core/client/src/httpClient/HttpClient'
-import { RestClient } from "../../packages/core/client/src/restClient/RestClient";
+import { HttpClient } from '../../packages/core/clients/src/httpClient/HttpClient'
+import { RestClient } from "../../packages/core/clients/src/restClient/RestClient";
 
 const httpConfig = {
   withCredentials: true,
