@@ -17,6 +17,7 @@ export enum HttpMethod {
  * Http request options
  */
 export type HttpRequestOptions = {
+  method?: HttpMethod
   params?: object
   headers?: object
   body?: object
@@ -40,10 +41,8 @@ const defaultOptions: AxiosRequestConfig = {
 }
 
 /**
- * Implementation of an http client providing standard
- * http methods using axios.
- *
- * @class
+ * Implementation of an http client providing
+ * standard http methods using axios.
  */
 export class HttpClient {
   protected axios: AxiosInstance
@@ -53,15 +52,13 @@ export class HttpClient {
    * @param config
    */
   constructor(config: AxiosRequestConfig) {
-    /**
-     * Create an axios instance
-     */
     this.axios = axios.create({
       ...defaultOptions,
       ...config,
     })
 
     /**
+     * Ensure we can handle the error response our self.
      * Define whether to resolve or reject the promise for a given HTTP response status code.
      * If `validateStatus` returns `true` (or is set to `null` or `undefined`), the promise
      * will be resolved; otherwise, the promise will be rejected.
@@ -96,12 +93,14 @@ export class HttpClient {
 
   /**
    * General request method
-   * @param url
-   * @param options
+   * @param {string} url endpoint url
+   * @param {HttpRequestOptions} options http request options
    */
   public async request<T>(url: string, options?: HttpRequestOptions): Promise<HttpResponse<T>> {
     const request: AxiosRequestConfig = {
+      method: options && options.method ? options.method : HttpMethod.GET,
       url: url,
+      data: (options && options.body) || '',
       headers: options && options.headers,
     }
 
