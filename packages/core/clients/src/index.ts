@@ -1,1 +1,2 @@
-export * from './httpClient/HttpClient'
+export * from './httpClient'
+export * from './restClient'

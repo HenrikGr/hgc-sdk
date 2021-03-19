@@ -40,7 +40,17 @@ class BaseError extends Error {
 }
 
 /**
- *
+ * This response means that server could not understand the request
+ * due to invalid syntax.
+ */
+export class BadRequest extends BaseError {
+  constructor(message: string) {
+    super('BadRequest', message, 400, false)
+  }
+}
+
+/**
+ * The client must authenticate itself to get the requested response.
  */
 export class Unauthorized extends BaseError {
   constructor(message: string) {
@@ -48,8 +58,57 @@ export class Unauthorized extends BaseError {
   }
 }
 
-export class BadRequest extends BaseError {
+/**
+ * The client does not have access rights to the content, i.e. they are unauthorized,
+ * so server is rejecting to give proper response. Unlike 401, the client's identity
+ * is known to the server
+ */
+export class Forbidden extends BaseError {
   constructor(message: string) {
-    super('BadRequest', message, 400, false)
+    super('Forbidden', message, 403, false)
+  }
+}
+
+/**
+ * The server can not find requested resource. In the browser, this means the URL is
+ * not recognized. In an API, this can also mean that the endpoint is valid but the
+ * resource itself does not exist. Servers may also send this response instead of
+ * Forbidden to hide the existence of a resource from an unauthorized client.
+ */
+export class NotFound extends BaseError {
+  constructor(message: string) {
+    super('NotFound', message, 404, false)
+  }
+}
+
+/**
+ * This response is sent when a request conflicts with the current state of the server.
+ */
+export class Conflict extends BaseError {
+  constructor(message: string) {
+    super('Conflict', message, 409, false)
+  }
+}
+
+/**
+ * This response would be sent when the requested content has been permanently
+ * deleted from server, with no forwarding address. Clients are expected to
+ * remove their caches and links to the resource. The HTTP specification intends
+ * this status code to be used for "limited-time, promotional services".
+ * APIs should not feel compelled to indicate resources that have been deleted
+ * with this status code.
+ */
+export class Gone extends BaseError {
+  constructor(message: string) {
+    super('Gone', message, 410, false)
+  }
+}
+
+/**
+ * The server has encountered a situation it doesn't know how to handle.
+ */
+export class UnexpectedError extends BaseError {
+  constructor(message: string) {
+    super('UnexpectedError', message, 500, true)
   }
 }

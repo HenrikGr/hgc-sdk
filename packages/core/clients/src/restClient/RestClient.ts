@@ -1,4 +1,19 @@
-import { HttpClient, HttpRequestOptions, HttpResponse, HttpMethod } from '../httpClient/HttpClient'
+import {
+  HttpClient,
+  HttpRequestOptions,
+  HttpResponse,
+} from '../httpClient/HttpClient'
+import {
+  BadRequest,
+  Unauthorized,
+  HttpStatusCode,
+  Forbidden,
+  NotFound,
+  Conflict,
+  Gone,
+  UnexpectedError
+} from "./BaseError";
+
 
 /**
  * Http client configuration options
@@ -32,7 +47,7 @@ export class RestClient {
     const options = {}
     const response = await this.httpClient.request<T>(url, opts)
 
-    if (response.status !== 200) {
+    if (response.status !== HttpStatusCode.OK) {
       return this.error(response)
     }
 
@@ -49,7 +64,7 @@ export class RestClient {
     const options = {}
     const response = await this.httpClient.get<T>(url, opts)
 
-    if (response.status !== 200) {
+    if (response.status !== HttpStatusCode.OK) {
       return this.error(response)
     }
 
@@ -66,7 +81,7 @@ export class RestClient {
     const options = {}
     const response = await this.httpClient.delete<T>(url, opts)
 
-    if (response.status !== 200) {
+    if (response.status !== HttpStatusCode.OK) {
       return this.error(response)
     }
 
@@ -83,7 +98,7 @@ export class RestClient {
     const options = {}
     const response = await this.httpClient.post<T>(url, opts)
 
-    if (response.status !== 200) {
+    if (response.status !== HttpStatusCode.OK) {
       return this.error(response)
     }
 
@@ -100,7 +115,7 @@ export class RestClient {
     const options = {}
     const response = await this.httpClient.put<T>(url, opts)
 
-    if (response.status !== 200) {
+    if (response.status !== HttpStatusCode.OK) {
       return this.error(response)
     }
 
@@ -117,7 +132,7 @@ export class RestClient {
     const options = {}
     const response = await this.httpClient.patch<T>(url, opts)
 
-    if (response.status !== 200) {
+    if (response.status !== HttpStatusCode.OK) {
       return this.error(response)
     }
 
@@ -137,10 +152,25 @@ export class RestClient {
    * @param response
    * @private
    */
-  private error(response: any): void {
+  public error(response: any): void {
     const { body } = response
     const { message } = body
 
-    console.log('Error: ', message)
+    switch(response.status) {
+      case HttpStatusCode.BAD_REQUEST:
+        throw new BadRequest(message)
+      case HttpStatusCode.UNAUTHORIZED:
+        throw new Unauthorized(message)
+      case HttpStatusCode.FORBIDDEN:
+        throw new Forbidden(message)
+      case HttpStatusCode.NOT_FOUND:
+        throw new NotFound(message)
+      case HttpStatusCode.CONFLICT:
+        throw new Conflict(message)
+      case HttpStatusCode.GONE:
+        throw new Gone(message)
+      default:
+        throw new UnexpectedError(message)
+    }
   }
 }
