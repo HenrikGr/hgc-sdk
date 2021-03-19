@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 import { PathLike } from 'fs'
 import * as qs from 'qs'
 
@@ -58,7 +58,8 @@ export class HttpClient {
     })
 
     /**
-     * Ensure we can handle the error response our self.
+     * Ensure we are not throwing errors
+     *
      * Define whether to resolve or reject the promise for a given HTTP response status code.
      * If `validateStatus` returns `true` (or is set to `null` or `undefined`), the promise
      * will be resolved; otherwise, the promise will be rejected.
@@ -75,20 +76,29 @@ export class HttpClient {
       }
     })
 
-    // Add a response interceptor
-    this.axios.interceptors.response.use(
-      function (response) {
-        // Any status code that lie within the range of 2xx cause this function to trigger
-        // Do something with response data
-        return response
-      },
-      function (error) {
-        console.log('error: ', error.message)
-        // Any status codes that falls outside the range of 2xx cause this function to trigger
-        // Do something with response error
-        return Promise.reject(error)
-      }
-    )
+    /**
+     * Response middleware interceptor
+     */
+    this.axios.interceptors.response.use(this.successResponse, this.errorResponse)
+  }
+
+  /**
+   * Response middleware function to be used for managing responses
+   * Note: it is not used If we allow axios to throw errors
+   * @param response
+   * @protected
+   */
+  protected successResponse(response: AxiosResponse) {
+    return response
+  }
+
+  /**
+   * Response middleware function to be used if we let axios throw errors
+   * @param error
+   * @protected
+   */
+  protected errorResponse(error: AxiosError) {
+    return Promise.reject(error)
   }
 
   /**
