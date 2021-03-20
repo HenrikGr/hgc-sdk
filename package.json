@@ -19,7 +19,8 @@
     "bootstrap": "lerna bootstrap",
     "clean": "lerna run clean",
     "build": "lerna run build",
-    "publish": "npm run build && lerna publish from-package"
+    "publish": "npm run build && lerna publish from-package",
+    "test": "jest --runInBand"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",

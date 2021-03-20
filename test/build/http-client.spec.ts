@@ -1,4 +1,9 @@
-import { HttpClient, HttpResponse, HttpRequestOptions, HttpMethod } from '../packages/core/http-client'
+import {
+  HttpClient,
+  HttpResponse,
+  HttpRequestOptions,
+  HttpMethod
+} from '../../packages/core/http-client'
 
 const httpConfig = {
   withCredentials: true,

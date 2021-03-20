@@ -27,7 +27,7 @@ class BaseError extends Error {
    * @param {HttpStatusCode} httpCode
    * @param {boolean} isOperational
    */
-  constructor(message: string, name: string, httpCode: HttpStatusCode, isOperational: boolean) {
+  constructor(name: string, message: string, httpCode: HttpStatusCode, isOperational: boolean) {
     super(message)
     Object.setPrototypeOf(this, new.target.prototype)
 
