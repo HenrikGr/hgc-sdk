@@ -1,4 +1,4 @@
-# @hgc-sdk/clients
+# @hgc-sdk/rest-client
 
 
 ## Key Concepts

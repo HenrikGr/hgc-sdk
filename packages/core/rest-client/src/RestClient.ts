@@ -2,7 +2,7 @@ import {
   HttpClient,
   HttpRequestOptions,
   HttpResponse,
-} from '../httpClient/HttpClient'
+} from '@hgc-sdk/http-client'
 import {
   BadRequest,
   Unauthorized,

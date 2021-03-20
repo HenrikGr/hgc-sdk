@@ -1,7 +1,7 @@
 {
-  "name": "@hgc-sdk/crypto",
+  "name": "@hgc-sdk/rest-client",
   "version": "1.0.0",
-  "description": "SDK Crypto library",
+  "description": "SDK Rest Client library",
   "author": "Henrik Grönvall <hgc-ab@outlook.com>",
   "license": "Apache-2.0",
   "keywords": [
@@ -28,7 +28,11 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
+    "@hgc-sdk/http-client": "^1.0.0",
     "@hgc-sdk/logger": "^1.0.0",
     "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.35"
   }
 }

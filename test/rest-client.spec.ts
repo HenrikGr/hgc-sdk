@@ -1,4 +1,4 @@
-import { RestClient, RestClientConfig, BadRequest, HttpClient } from '../packages/core/clients'
+import { RestClient, RestClientConfig, BadRequest } from '../packages/core/rest-client'
 
 const config = {
   withCredentials: true,
