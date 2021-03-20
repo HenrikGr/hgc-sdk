@@ -1,4 +1,4 @@
-import crypto from 'crypto'
+import { randomBytes, scrypt, timingSafeEqual } from 'crypto'
 
 const KEY_LENGTH: number = 64
 
@@ -14,8 +14,8 @@ export async function generateHash(
   encoding: 'base64' | 'hex' = 'hex'
 ): Promise<string> {
   return new Promise((resolve, reject) => {
-    const salt = crypto.randomBytes(rounds).toString(encoding)
-    crypto.scrypt(text, salt, KEY_LENGTH, (err, derivedKey) => {
+    const salt = randomBytes(rounds).toString(encoding)
+    scrypt(text, salt, KEY_LENGTH, (err, derivedKey) => {
       if (err) reject(err)
       resolve(salt + ':' + derivedKey.toString(encoding))
     })
@@ -37,9 +37,9 @@ export async function verifyHash(
     const [salt, key] = hash.split(':')
     const keyBuffer = Buffer.from(key, encoding)
 
-    crypto.scrypt(text, salt, KEY_LENGTH, (err, derivedKey) => {
+    scrypt(text, salt, KEY_LENGTH, (err, derivedKey) => {
       if (err) reject(err)
-      resolve(crypto.timingSafeEqual(keyBuffer, derivedKey))
+      resolve(timingSafeEqual(keyBuffer, derivedKey))
     })
   })
 }

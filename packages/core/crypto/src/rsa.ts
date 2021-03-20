@@ -1,4 +1,4 @@
-import crypto, { KeyLike } from 'crypto'
+import { KeyLike, createSign, createVerify } from 'crypto'
 
 /**
  * Generate a signature based on data and a private key
@@ -11,7 +11,7 @@ export async function generateSignature(
   key: KeyLike,
   encoding: 'base64' | 'hex' = 'base64'
 ): Promise<string> {
-  let signer = crypto.createSign('RSA-SHA1')
+  let signer = createSign('RSA-SHA1')
   signer.update(data, 'utf8')
   return signer.sign(key, encoding)
 }
@@ -29,7 +29,7 @@ export async function verifySignature(
   key: KeyLike,
   encoding: 'base64' | 'hex' = 'base64'
 ): Promise<boolean> {
-  let verifier = crypto.createVerify('RSA-SHA1')
+  let verifier = createVerify('RSA-SHA1')
   verifier.update(data, 'utf8')
   return verifier.verify(key, signature, encoding)
 }
