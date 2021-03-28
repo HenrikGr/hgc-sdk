@@ -1,0 +1,39 @@
+{
+  "name": "@hgc-sdk/mongo-db",
+  "version": "1.0.0",
+  "description": "SDK Mongo Database library",
+  "author": "Henrik Grönvall <hgc-ab@outlook.com>",
+  "license": "Apache-2.0",
+  "keywords": [
+    "SDK"
+  ],
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HenrikGr/hgc-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HenrikGr/hgc-sdk/issues"
+  },
+  "homepage": "https://github.com/HenrikGr/hgc-sdk#readme",
+  "scripts": {
+    "clean": "rimraf ./lib",
+    "build": "npm run clean && npm run compile",
+    "compile": "tsc -p tsconfig.build.json",
+    "copy": "ts-node -T ../../../scripts/copy.ts",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "@hgc-sdk/logger": "^1.0.0",
+    "@hgc-sdk/crypto": "^1.0.0",
+    "mongodb": "^3.6.3",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/mongodb": "^3.6.10"
+  }
+}
