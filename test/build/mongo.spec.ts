@@ -58,6 +58,9 @@ describe('MongoDb Build Suite', () => {
     let connectionOpts: DbConnectionOptions
     let dbClient: DbClient
     let dao: IBaseDao
+    let username = process.env.TEST_USERNAME ? process.env.TEST_USERNAME: ''
+    let password = process.env.TEST_PASSWORD ? process.env.TEST_PASSWORD: ''
+
     beforeAll(() => {
       connectionOpts = DbClientConfiguration.create()
       dbClient = DbClient.create(connectionOpts)
@@ -72,7 +75,7 @@ describe('MongoDb Build Suite', () => {
       expect.assertions(1)
 
       const model = new UserRepository('accounts', dao)
-      const isValid = await model.validateUserByPassword('root-user', 'Hgc9057AB')
+      const isValid = await model.validateUserByPassword(username, password)
       expect(isValid).toBeTruthy()
     })
 
@@ -80,7 +83,7 @@ describe('MongoDb Build Suite', () => {
       expect.assertions(1)
 
       const model = new UserRepository('accounts', dao)
-      const isValid = await model.validateUserByPassword('root', 'Hgc9057AB')
+      const isValid = await model.validateUserByPassword(username, 'wrongPassword')
       expect(isValid).toBeFalsy()
     })
   })
