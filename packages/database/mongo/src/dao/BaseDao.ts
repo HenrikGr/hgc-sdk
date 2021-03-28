@@ -1,4 +1,4 @@
-import { DbClient } from '../client/DbClient'
+import { DbClient } from '../client'
 import { Db, Cursor, Collection, CollectionCreateOptions, FilterQuery } from 'mongodb'
 
 export interface IBaseDao {
