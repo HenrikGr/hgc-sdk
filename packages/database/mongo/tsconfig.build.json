@@ -5,5 +5,9 @@
   },
   "include": [
     "src/**/*"
+  ],
+  "exclude": [
+    "src/repositories/*",
+    "src/schemas/*"
   ]
 }
