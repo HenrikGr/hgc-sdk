@@ -1,5 +1,7 @@
 import {
   HttpClient,
+  HttpClientConfig,
+  HttpMethod,
   HttpRequestOptions,
   HttpResponse,
 } from '@hgc-sdk/http-client'
@@ -11,30 +13,21 @@ import {
   NotFound,
   Conflict,
   Gone,
-  UnexpectedError
-} from "./BaseError";
-
-
-/**
- * Http client configuration options
- */
-export type RestClientConfig = {
-  baseURL: string
-}
+  UnexpectedError,
+} from './BaseError'
 
 /**
  * Implementation of a rest client using an HttpClient based on axios
  */
 export class RestClient {
-  private readonly config: RestClientConfig
   protected httpClient: HttpClient
 
-  constructor(config: RestClientConfig) {
-    this.config = {
-      ...config,
-    }
-
-    this.httpClient = new HttpClient(this.config)
+  /**
+   * Creates a new RestClient instance
+   * @param config
+   */
+  constructor(config: HttpClientConfig) {
+    this.httpClient = new HttpClient(config)
   }
 
   /**
@@ -42,10 +35,8 @@ export class RestClient {
    * @param url
    * @param opts
    */
-  async request<T>(url: string, opts?: HttpRequestOptions) {
-    // HttpRequestOptions
-    const options = {}
-    const response = await this.httpClient.request<T>(url, opts)
+  async request(url: string, opts?: HttpRequestOptions) {
+    const response: HttpResponse = await this.httpClient.request(url, opts)
 
     if (response.status !== HttpStatusCode.OK) {
       return this.error(response)
@@ -59,16 +50,13 @@ export class RestClient {
    * @param url
    * @param opts
    */
-  async get<T>(url: string, opts?: HttpRequestOptions) {
-    // HttpRequestOptions
-    const options = {}
-    const response = await this.httpClient.get<T>(url, opts)
-
-    if (response.status !== HttpStatusCode.OK) {
-      return this.error(response)
+  async get(url: string, opts?: HttpRequestOptions) {
+    const options = {
+      ...opts,
+      method: HttpMethod.GET,
     }
 
-    return this.success(response)
+    return await this.request(url, options)
   }
 
   /**
@@ -76,16 +64,12 @@ export class RestClient {
    * @param url
    * @param opts
    */
-  async delete<T>(url: string, opts?: HttpRequestOptions) {
-    // HttpRequestOptions
-    const options = {}
-    const response = await this.httpClient.delete<T>(url, opts)
-
-    if (response.status !== HttpStatusCode.OK) {
-      return this.error(response)
+  async delete(url: string, opts?: HttpRequestOptions) {
+    const options = {
+      ...opts,
+      method: HttpMethod.DELETE,
     }
-
-    return this.success(response)
+    return this.request(url, options)
   }
 
   /**
@@ -93,16 +77,12 @@ export class RestClient {
    * @param url
    * @param opts
    */
-  async post<T>(url: string, opts?: HttpRequestOptions) {
-    // HttpRequestOptions
-    const options = {}
-    const response = await this.httpClient.post<T>(url, opts)
-
-    if (response.status !== HttpStatusCode.OK) {
-      return this.error(response)
+  async post(url: string, opts?: HttpRequestOptions) {
+    const options = {
+      ...opts,
+      method: HttpMethod.POST,
     }
-
-    return this.success(response)
+    return this.request(url, options)
   }
 
   /**
@@ -110,16 +90,12 @@ export class RestClient {
    * @param url
    * @param opts
    */
-  async put<T>(url: string, opts?: HttpRequestOptions) {
-    // HttpRequestOptions
-    const options = {}
-    const response = await this.httpClient.put<T>(url, opts)
-
-    if (response.status !== HttpStatusCode.OK) {
-      return this.error(response)
+  async put(url: string, opts?: HttpRequestOptions) {
+    const options = {
+      ...opts,
+      method: HttpMethod.PUT,
     }
-
-    return this.success(response)
+    return this.request(url, options)
   }
 
   /**
@@ -127,24 +103,20 @@ export class RestClient {
    * @param url
    * @param opts
    */
-  async patch<T>(url: string, opts?: HttpRequestOptions) {
-    // HttpRequestOptions
-    const options = {}
-    const response = await this.httpClient.patch<T>(url, opts)
-
-    if (response.status !== HttpStatusCode.OK) {
-      return this.error(response)
+  async patch(url: string, opts?: HttpRequestOptions) {
+    const options = {
+      ...opts,
+      method: HttpMethod.PATCH,
     }
-
-    return this.success(response)
+    return this.request(url, options)
   }
 
   /**
    * Success request handler
    * @param response
    */
-  public success<T>(response: HttpResponse<T>): T {
-    return response.body
+  public success(response: HttpResponse): HttpResponse {
+    return response
   }
 
   /**
@@ -156,7 +128,7 @@ export class RestClient {
     const { body } = response
     const { message } = body
 
-    switch(response.status) {
+    switch (response.status) {
       case HttpStatusCode.BAD_REQUEST:
         throw new BadRequest(message)
       case HttpStatusCode.UNAUTHORIZED:
