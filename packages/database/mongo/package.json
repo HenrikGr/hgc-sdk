@@ -1,6 +1,6 @@
 {
   "name": "@hgc-sdk/mongo-db",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "SDK Mongo Database library",
   "author": "Henrik Grönvall <hgc-ab@outlook.com>",
   "license": "Apache-2.0",
