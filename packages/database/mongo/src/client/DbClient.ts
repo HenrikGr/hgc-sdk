@@ -7,28 +7,36 @@
 
 import { createClientLogger, ServiceLogger } from '@hgc-sdk/logger'
 import { MongoClient, Db } from 'mongodb'
-import { DbConnectionOptions } from './DbClientConfiguration'
+import { DbConnectionOptions } from './DbConnectionConfiguration'
 
 /**
- * Implements a wrapper client for MongoClient to support connection for
- * a specific database to mongo server.
- *
- * The class is implemented as a singleton and defines the `create` method
- * that lets clients access the unique dbClient instance.
- *
- * The public connect api should be used once in your applications for one
- * database. The disconnect method is to support for cleaning up resources
- * on application shut-downs.
+ * Represent a database client to connect to a specific
+ * database in a Mongo Server service such as Mongo Atlas.
  */
 export class DbClient {
-  // The singleton
+  /**
+   * The singleton DbClient instance
+   * @private
+   */
   private static dbClient: DbClient
+  /**
+   * The MongoDb client instance managing connection pools, etc
+   * @private
+   */
   private client: MongoClient
+  /**
+   * Logger service
+   * @private
+   */
   private logger: ServiceLogger
 
   /**
    * The constructor is private to prevent direct
    * construction calls with the `new` operator.
+   * @ignore
+   * @param client
+   * @param logger
+   * @private
    */
   private constructor(client: MongoClient, logger: ServiceLogger) {
     this.client = client
@@ -36,8 +44,8 @@ export class DbClient {
   }
 
   /**
-   * Factory method to create a DbClient instance
-   * @param connectionOptions
+   * Factory method to create a DbClient singleton instance
+   * @param connectionOptions The connection options.
    */
   public static create(connectionOptions: DbConnectionOptions): DbClient {
     // Check if not already instantiated
@@ -52,7 +60,11 @@ export class DbClient {
   }
 
   /**
-   * Connect and return the database
+   * Establish a connection to Mongo server and returns a database
+   *
+   * Once the connection is established, it will not connect again, instead
+   * it utilize the MongoClient connection pools, etc.
+   * @param dbName The database name
    */
   public async connect(dbName: string): Promise<Db> {
     // If client has an established connection - return a database instance
@@ -70,7 +82,7 @@ export class DbClient {
 
   /**
    * Disconnect the client connection to the server
-   * Should be used to perform a graceful shutdown ONLY
+   * Should be used to perform a graceful shutdown only.
    */
   public async disconnect(): Promise<void> {
     this.logger.verbose(`disconnect: close connection to database`)
