@@ -1,5 +1,5 @@
 import debug, { Debugger } from 'debug'
-export { Debugger } from 'debug'
+//export { Debugger } from 'debug'
 
 /**
  * The ServiceLogger provides a mechanism for overriding where logs are output to.
