@@ -7,7 +7,7 @@
 
 import { createClientLogger, ServiceLogger } from '@hgc-sdk/logger'
 import { MongoClient, Db } from 'mongodb'
-import { DbConnectionOptions } from './DbConnectionConfiguration'
+import { DbClientOptions } from './DbClientConfigurationReader'
 
 /**
  * Represent a database client to connect to a specific
@@ -45,13 +45,13 @@ export class DbClient {
 
   /**
    * Factory method to create a DbClient singleton instance
-   * @param connectionOptions The connection options.
+   * @param clientOptions The client options.
    */
-  public static create(connectionOptions: DbConnectionOptions): DbClient {
+  public static create(clientOptions: DbClientOptions): DbClient {
     // Check if not already instantiated
     if (!DbClient.dbClient) {
       const logger = createClientLogger('DbClient')
-      const client = new MongoClient(connectionOptions.connectionURI, connectionOptions.options)
+      const client = new MongoClient(clientOptions.connectionURI, clientOptions.options)
 
       DbClient.dbClient = new DbClient(client, logger)
     }
@@ -88,4 +88,6 @@ export class DbClient {
     this.logger.verbose(`disconnect: close connection to database`)
     await this.client.close()
   }
+
+  // TODO: Add a watch method to listen to changedStreams fot the connected cluster
 }

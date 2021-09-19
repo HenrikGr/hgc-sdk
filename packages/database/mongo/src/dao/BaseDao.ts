@@ -1,12 +1,20 @@
 import { DbClient } from '../client'
-import { Db, Cursor, Collection, CollectionCreateOptions, FilterQuery } from 'mongodb'
+import {
+  Db,
+  Cursor,
+  Collection,
+  CollectionCreateOptions,
+  FilterQuery,
+  InsertOneWriteOpResult,
+  InsertWriteOpResult,
+} from 'mongodb'
 
 export interface IBaseDao {
   getCollection(collectionName: string): Promise<Collection<any>>
   count(collectionName: string, query?: FilterQuery<any>, options?: object): Promise<number>
   find(collectionName: string, query: FilterQuery<any>, options?: object): Promise<Cursor<any>>
   findOne(collectionName: string, query: FilterQuery<any>, options?: object): Promise<any>
-  insertOne(collectionName: string, document: object, options?: object): Promise<number>
+  insertOne(collectionName: string, document: object, options?: object): Promise<InsertOneWriteOpResult<any>>
   insertMany(collectionName: string, documents: any[], options?: object): Promise<number>
   updateOne(
     collectionName: string,
@@ -74,7 +82,7 @@ export class BaseDao {
   public async find(collectionName: string, query: FilterQuery<any>, options?: object): Promise<Cursor<any>> {
     try {
       const collection = await this.getCollection(collectionName)
-      return await collection.find(query, options)
+      return collection.find(query, options)
     } catch (e) {
       throw e
     }
@@ -83,39 +91,39 @@ export class BaseDao {
   public async findOne(collectionName: string, query: FilterQuery<any>, options?: object): Promise<any> {
     try {
       const collection = await this.getCollection(collectionName)
-      return await collection.findOne(query, options)
+      return collection.findOne(query, options)
     } catch (e) {
       throw e
     }
   }
 
-  public async insertOne(collectionName: string, document: object, options?: object): Promise<number> {
+  public async insertOne(
+    collectionName: string,
+    document: object,
+    options?: object
+  ): Promise<InsertOneWriteOpResult<any>> {
     try {
       const collection = await this.getCollection(collectionName)
-
-      if (this.useTimeStamp) {
-        const now = new Date()
-        const extendedDocument = {
-          ...document,
-          createdAt: now,
-          updatedAt: now,
-        }
-        const result = await collection.insertOne(extendedDocument, options)
-        return result.insertedCount
-      } else {
-        const result = await collection.insertOne(document, options)
-        return result.insertedCount
+      const now = new Date()
+      const extendedDocument = {
+        ...document,
+        createdAt: this.useTimeStamp ? now : undefined,
+        updatedAt: this.useTimeStamp ? now : undefined,
       }
+      return collection.insertOne(extendedDocument, options)
     } catch (e) {
       throw e
     }
   }
 
-  public async insertMany(collectionName: string, documents: any[], options?: object): Promise<number> {
+  public async insertMany(
+    collectionName: string,
+    documents: any[],
+    options?: object
+  ): Promise<InsertWriteOpResult<any>> {
     try {
       const collection = await this.getCollection(collectionName)
-      const result = await collection.insertMany(documents, options)
-      return result.insertedCount
+      return collection.insertMany(documents, options)
     } catch (e) {
       throw e
     }
@@ -129,7 +137,7 @@ export class BaseDao {
   ): Promise<number> {
     try {
       const collection = await this.getCollection(collectionName)
-      if(this.useTimeStamp) {
+      if (this.useTimeStamp) {
         const now = new Date()
         const extendedDocument = {
           ...document,
@@ -161,7 +169,11 @@ export class BaseDao {
     }
   }
 
-  public async deleteOne(collectionName: string, filter: FilterQuery<any>, options?: object): Promise<boolean> {
+  public async deleteOne(
+    collectionName: string,
+    filter: FilterQuery<any>,
+    options?: object
+  ): Promise<boolean> {
     try {
       const collection = await this.getCollection(collectionName)
       const result = await collection.deleteOne(filter, options)
@@ -171,7 +183,11 @@ export class BaseDao {
     }
   }
 
-  public async deleteMany(collectionName: string, filter: FilterQuery<any>, options?: object): Promise<boolean> {
+  public async deleteMany(
+    collectionName: string,
+    filter: FilterQuery<any>,
+    options?: object
+  ): Promise<boolean> {
     try {
       const collection = await this.getCollection(collectionName)
       const result = await collection.deleteMany(filter, options)

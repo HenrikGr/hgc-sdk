@@ -8,13 +8,13 @@ import {
 
 describe('HttpClient Build Suite', () => {
   const httpClientConfig: HttpClientConfig = {
-    baseURL: 'http://localhost:5000',
+    baseURL: 'https://example.com:5000',
   }
 
   let httpClient = null
 
   describe('HttpClient operations', () => {
-    it('Calls an open status endpoint -> should return OK', async () => {
+    it.skip('Calls an open status endpoint -> should return OK', async () => {
       const expected = {
         status: 200,
         body: {
@@ -23,13 +23,14 @@ describe('HttpClient Build Suite', () => {
       }
 
       httpClient = new HttpClient(httpClientConfig)
-      const result = await httpClient.request('/status')
+      const result = await httpClient.request('/ping')
+      console.log('result', result)
 
       expect(result.status).toBe(expected.status)
       expect(result.body).toMatchObject(expected.body)
     })
 
-    it('Calls a protected endpoint -> should return error object', async () => {
+    it.skip('Calls a protected endpoint -> should return error object', async () => {
       const expected = {
         status: 409,
         body: {

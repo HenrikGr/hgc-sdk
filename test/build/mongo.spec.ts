@@ -3,7 +3,7 @@ require('dotenv').config()
 
 import {
   DbClient,
-  DbClientConfiguration,
+  DbConnectionConfiguration,
   DbConnectionOptions,
   BaseDao,
   IBaseDao,
@@ -14,7 +14,7 @@ describe('MongoDb Build Suite', () => {
   describe('DbClient Unit Tests', () => {
     let connectionOpts: DbConnectionOptions
     beforeAll(() => {
-      connectionOpts = DbClientConfiguration.create()
+      connectionOpts = DbConnectionConfiguration.create()
     })
 
     describe('DbClient instance', () => {

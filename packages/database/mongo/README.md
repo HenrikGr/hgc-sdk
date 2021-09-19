@@ -5,7 +5,7 @@ your application with base functionality to access a mongo database.
 
 ## Key Concepts
 You need to first create the DatabaseClient instance, and configure it properly. The DBClientConfiguration
-class is used to create connection options needed to instantiate the DbClient. The DbConnectionConfiguration
+class is used to create connection options needed to instantiate the DbClient. The DbClientConfigurationReader
 reading by default settings from environment variables but can be overridden. The default environment
 variables are;
 
@@ -19,7 +19,7 @@ After you have created your dbClient instance, you can create a baseDao instance
 
 ```typescript
 // dbClient.ts
-import { DbClient, DbConnectionConfiguration } from "@hgc-sdk/mongo-db"
+import { DbClient, DbClientConfigurationReader } from "@hgc-sdk/mongo-db"
 
 // Use this to override defaults
 const myClientConfig = {
@@ -31,7 +31,7 @@ const myClientConfig = {
 }
 
 // Create a connection options object
-const connectionOptions = DbConnectionConfiguration.create("<here you can override defaults>")
+const connectionOptions = DbClientConfigurationReader.create("<here you can override defaults>")
 
 // Create the db client instance.
 const dbClient = DbClient.create(connectionOptions)

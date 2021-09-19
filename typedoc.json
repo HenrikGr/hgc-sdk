@@ -1,0 +1,4 @@
+{
+  "entryPoints": ["./packages/database/mongo/src/index.ts"],
+  "out": "doc"
+}

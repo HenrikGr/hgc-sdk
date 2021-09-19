@@ -1,2 +1,2 @@
 export * from './DbClient'
-export * from './DbConnectionConfiguration'
+export * from './DbClientConfigurationReader'
